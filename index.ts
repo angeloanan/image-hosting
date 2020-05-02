@@ -14,7 +14,7 @@ server.get('/', (_, res) => {
 })
 
 server.get('/:id', (req, res) => {
-  const id = req.params.id
+  const id: string = req.params.id
 
   res.code(200)
   res.send(`Your ID is: ${id}`)
