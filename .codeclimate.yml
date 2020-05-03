@@ -1,0 +1,7 @@
+plugins: 
+  eslint:
+    enabled: true
+    channel: "eslint-6"
+    config:
+      extensions:
+      - .ts
