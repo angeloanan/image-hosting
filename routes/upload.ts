@@ -1,4 +1,4 @@
-import { FastifyInstance } from 'fastify'
+import { FastifyInstance, FastifyReply, FastifyRequest } from 'fastify'
 import multer from 'fastify-multer'
 import mime from 'mime-types'
 import crypto from 'crypto'
@@ -22,7 +22,7 @@ const diskStorage = multer.diskStorage({
 const img = multer({ storage: diskStorage })
 
 module.exports = function (fastify: FastifyInstance, opts: void, done: VoidFunction): void {
-  fastify.post('/upload', { preHandler: img.single('image') }, (req, res) => {
+  fastify.post('/upload', { preValidation: [handleAuth], preHandler: img.single('image') }, (req, res) => {
     console.log('Got a file with filename', req.file.filename)
 
     const imageRepo = getRepository(ImageModel)
@@ -40,5 +40,10 @@ module.exports = function (fastify: FastifyInstance, opts: void, done: VoidFunct
         res.code(500).send('DB Error' + err)
       })
   })
+  done()
+}
+
+function handleAuth (req: FastifyRequest, res: FastifyReply<any>, done: VoidFunction) {
+  if (req.headers?.authorization !== process.env.AUTH ?? '') res.code(401).send('Unauthorized')
   done()
 }
