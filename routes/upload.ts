@@ -19,10 +19,10 @@ const diskStorage = multer.diskStorage({
     callback(null, `${randomName}.${extension}`)
   }
 })
-const img = multer({ storage: diskStorage })
+const fileHandler = multer({ storage: diskStorage })
 
-module.exports = function (fastify: FastifyInstance, opts: void, done: VoidFunction): void {
-  fastify.post('/upload', { preValidation: [handleAuth], preHandler: img.single('image') }, (req, res) => {
+module.exports = function (fastify: FastifyInstance, _:any, done: VoidFunction): void {
+  fastify.post('/upload', { preValidation: [handleAuth], preHandler: fileHandler.single('image') }, (req, res) => {
     console.log('Got a file with filename', req.file.filename)
 
     const imageRepo = getRepository(ImageModel)
@@ -30,9 +30,9 @@ module.exports = function (fastify: FastifyInstance, opts: void, done: VoidFunct
     image.filename = req.file.filename!
 
     imageRepo.save(image)
-      .then(img => {
-        const hashedID = hashids.encode(img.id)
-        imageRepo.update({ id: img.id }, { urlpath: hashedID })
+      .then(DBImage => {
+        const hashedID = hashids.encode(DBImage.id)
+        imageRepo.update({ id: DBImage.id }, { urlpath: hashedID })
 
         res.code(200).send(`${process.env.HOST}/${hashedID}`)
       })
@@ -44,6 +44,6 @@ module.exports = function (fastify: FastifyInstance, opts: void, done: VoidFunct
 }
 
 function handleAuth (req: FastifyRequest, res: FastifyReply<any>, done: VoidFunction) {
-  if (req.headers?.authorization !== process.env.AUTH ?? '') res.code(401).send('Unauthorized')
+  if (req.headers?.authorization !== process.env.AUTH) res.code(401).send('Unauthorized')
   done()
 }
