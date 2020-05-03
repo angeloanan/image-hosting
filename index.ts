@@ -1,11 +1,20 @@
+import 'reflect-metadata'
+import { createConnection } from 'typeorm'
+import { Image } from './db/model/Image'
 import fastify from 'fastify'
 import multer from 'fastify-multer'
 require('dotenv').config()
 
+const { DB_HOST, DB_PORT, DB_USER, DB_PASS, DB_NAME, PORT, HOST } = process.env
+if (DB_HOST == null || DB_PORT == null || DB_USER == null || DB_PASS == null || DB_NAME == null || HOST == null || PORT == null) throw new Error('Missing Environment Variables!')
+
+const DBPort = parseInt(DB_PORT) ?? 8080
+const serverPort = parseInt(PORT ?? '8080')
+
 const server = fastify()
 server.register(multer.contentParser)
-// eslint-disable-next-line @typescript-eslint/no-var-requires
 server.register(require('./routes/upload'))
+server.register(require('./routes/getfile'))
 
 // Routes
 
@@ -13,17 +22,24 @@ server.get('/', (_, res) => {
   res.send('How did you find this?')
 })
 
-server.get('/:id', (req, res) => {
-  const id: string = req.params.id
-
-  res.code(200)
-  res.send(`Your ID is: ${id}`)
+createConnection({
+  type: 'mariadb',
+  host: DB_HOST,
+  port: DBPort,
+  username: DB_USER,
+  password: DB_PASS,
+  database: DB_NAME,
+  entities: [
+    Image
+  ],
+  synchronize: true,
+  logging: true
+}).then(() => {
+  console.log('Database Ready!')
+  server.listen(serverPort)
+    .then(() => {
+      console.log(`Listening to port ${DBPort}`)
+    }).catch(err => {
+      console.error(err)
+    })
 })
-
-const port = parseInt(process.env.PORT ?? '8080')
-server.listen(port)
-  .then(res => {
-    console.log(`Listening to port ${port}`)
-  }).catch(err => {
-    console.error(err)
-  })
