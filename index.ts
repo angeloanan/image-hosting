@@ -6,10 +6,10 @@ import multer from 'fastify-multer'
 require('dotenv').config()
 
 const { DB_HOST, DB_PORT, DB_USER, DB_PASS, DB_NAME, PORT, HOST } = process.env
-if (DB_HOST == null || DB_PORT == null || DB_USER == null || DB_PASS == null || DB_NAME == null || HOST == null || PORT == null) throw new Error('Missing Environment Variables!')
+if (DB_HOST == null || DB_PORT == null || DB_USER == null || DB_PASS == null || DB_NAME == null || HOST == null) throw new Error('Missing Environment Variables!')
 
 const DBPort = parseInt(DB_PORT)
-const serverPort = parseInt(PORT)
+const serverPort = parseInt(PORT ?? '42069')
 
 const server = fastify()
 server.register(multer.contentParser)
