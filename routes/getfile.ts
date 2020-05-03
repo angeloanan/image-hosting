@@ -8,7 +8,7 @@ import mime from 'mime-types'
 module.exports = function (fastify: FastifyInstance, opts: void, done: VoidFunction): void {
   fastify.get('/:path', (req, res) => {
     if (req.params.path == null) res.code(404).send('Not found')
-    if (req.params.path.length < 8) res.code(404).send('Not found') // Hashids minimum 8 chars
+    if (req.params.path.length < 6) res.code(404).send('Not found') // Hashids minimum 8 chars
 
     const urlpath: string = req.params.path
     const imageRepo = getRepository(Image)
