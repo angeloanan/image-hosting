@@ -1,3 +1,4 @@
+import 'reflect-metadata'
 import { createConnection } from 'typeorm'
 import { Image } from './model/Image'
 require('dotenv').config()

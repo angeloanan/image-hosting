@@ -2,9 +2,12 @@ import { FastifyInstance } from 'fastify'
 import multer from 'fastify-multer'
 import mime from 'mime-types'
 import crypto from 'crypto'
-import hashids from 'hashids'
+import * as hashids from '../hashids'
 import { Image as ImageModel } from '../db/model/Image'
 import { db } from '../db/api'
+require('dotenv').config()
+
+if (process.env.HOST === undefined) throw new Error('Missing Hostname')
 
 const diskStorage = multer.diskStorage({
   destination: (req, file, callback) => {
@@ -25,12 +28,18 @@ module.exports = function (fastify: FastifyInstance, opts: void, done: VoidFunct
     console.log('Got a file with filename', req.file.filename)
 
     const file = new ImageModel()
-    file.filename = req.file.originalname
+    file.filename = req.file.filename ?? ''
 
     db.then(connection => {
       connection.manager.save(file)
         .then(img => {
+          const idHashed = hashids.encode(img.id)
           console.log('Image ID is', img.id)
+          img.urlpath = idHashed
+
+          connection.manager.save(img)
+          console.log('Successfully saved all to DB')
+          res.code(200).send(`${process.env.HOST || ''}/${img.urlpath}`)
         })
         .catch(err => {
           console.error('Error saving Image to DB', err)
@@ -38,9 +47,8 @@ module.exports = function (fastify: FastifyInstance, opts: void, done: VoidFunct
         })
     }).catch(err => {
       console.error('Failed initializing DB', err)
+      res.code(500).send(`Error saving Image to Database. Error: ${err}`)
     })
-
-    res.code(200).send('Accepted!')
   })
   done()
 }
