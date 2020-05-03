@@ -4,10 +4,8 @@ import mime from 'mime-types'
 import crypto from 'crypto'
 import * as hashids from '../hashids'
 import { Image as ImageModel } from '../db/model/Image'
-import { db } from '../db/api'
+import { getRepository } from 'typeorm'
 require('dotenv').config()
-
-if (process.env.HOST === undefined) throw new Error('Missing Hostname')
 
 const diskStorage = multer.diskStorage({
   destination: (req, file, callback) => {
@@ -27,28 +25,20 @@ module.exports = function (fastify: FastifyInstance, opts: void, done: VoidFunct
   fastify.post('/upload', { preHandler: img.single('image') }, (req, res) => {
     console.log('Got a file with filename', req.file.filename)
 
-    const file = new ImageModel()
-    file.filename = req.file.filename ?? ''
+    const imageRepo = getRepository(ImageModel)
+    const image = new ImageModel()
+    image.filename = req.file.filename!
 
-    db.then(connection => {
-      connection.manager.save(file)
-        .then(img => {
-          const idHashed = hashids.encode(img.id)
-          console.log('Image ID is', img.id)
-          img.urlpath = idHashed
+    imageRepo.save(image)
+      .then(img => {
+        const hashedID = hashids.encode(img.id)
+        imageRepo.update({ id: img.id }, { urlpath: hashedID })
 
-          connection.manager.save(img)
-          console.log('Successfully saved all to DB')
-          res.code(200).send(`${process.env.HOST || ''}/${img.urlpath}`)
-        })
-        .catch(err => {
-          console.error('Error saving Image to DB', err)
-          res.code(500).send(`Error saving Image to Database. Error: ${err}`)
-        })
-    }).catch(err => {
-      console.error('Failed initializing DB', err)
-      res.code(500).send(`Error saving Image to Database. Error: ${err}`)
-    })
+        res.code(200).send(`${process.env.HOST}/${hashedID}`)
+      })
+      .catch(err => {
+        res.code(500).send('DB Error' + err)
+      })
   })
   done()
 }
