@@ -13,8 +13,8 @@ COPY package*.json ./
 ENV NODE_ENV=production
 RUN yarn install --production
 
-COPY --from=build /usr/app/dist ./dist
+COPY --from=build /usr/app/dist ./
 VOLUME /usr/app/img
 
 EXPOSE 42069
-CMD node dist/index.js
+CMD node index.js
