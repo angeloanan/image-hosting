@@ -8,8 +8,8 @@ require('dotenv').config()
 const { DB_HOST, DB_PORT, DB_USER, DB_PASS, DB_NAME, PORT, HOST } = process.env
 if (DB_HOST == null || DB_PORT == null || DB_USER == null || DB_PASS == null || DB_NAME == null || HOST == null || PORT == null) throw new Error('Missing Environment Variables!')
 
-const DBPort = parseInt(DB_PORT) ?? 8080
-const serverPort = parseInt(PORT ?? '8080')
+const DBPort = parseInt(DB_PORT)
+const serverPort = parseInt(PORT)
 
 const server = fastify()
 server.register(multer.contentParser)
@@ -38,7 +38,7 @@ createConnection({
   console.log('Database Ready!')
   server.listen(serverPort)
     .then(() => {
-      console.log(`Listening to port ${DBPort}`)
+      console.log(`Listening to port ${serverPort}`)
     }).catch(err => {
       console.error(err)
     })
