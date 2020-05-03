@@ -1,13 +1,12 @@
 # Angelo's Image Hosting Service
 
-[![Maintainability](https://api.codeclimate.com/v1/badges/75a30b1b8b736ed8c38f/maintainability)](https://codeclimate.com/github/angeloanan/angelo-image-hosting/maintainability)
-[![Test Coverage](https://api.codeclimate.com/v1/badges/75a30b1b8b736ed8c38f/test_coverage)](https://codeclimate.com/github/angeloanan/angelo-image-hosting/test_coverage)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=angeloanan_angelo-image-hosting&metric=alert_status)](https://sonarcloud.io/dashboard?id=angeloanan_angelo-image-hosting)
 
 Image hosting for my personal use. Feel free to use it on your own!
 
 ## Technology Used
 
-* Typescript
-* Fastify
-* TypeORM
-* MariaDB (Personal)
+  * Typescript
+  * Fastify
+  * TypeORM
+  * MariaDB (Personal)
