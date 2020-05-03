@@ -2,7 +2,7 @@ import { FastifyInstance } from 'fastify'
 import multer from 'fastify-multer'
 import mime from 'mime-types'
 import crypto from 'crypto'
-import * as hashids from '../hashids'
+import * as hashids from '../helper/hashids'
 import { Image as ImageModel } from '../db/model/Image'
 import { getRepository } from 'typeorm'
 require('dotenv').config()
