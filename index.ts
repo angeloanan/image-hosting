@@ -1,6 +1,7 @@
 import 'reflect-metadata'
 import { createConnection } from 'typeorm'
 import { Image } from './db/model/Image'
+import fs from 'fs'
 import fastify from 'fastify'
 import multer from 'fastify-multer'
 require('dotenv').config()
@@ -10,6 +11,7 @@ if (DB_HOST == null || DB_PORT == null || DB_USER == null || DB_PASS == null || 
 
 const DBPort = parseInt(DB_PORT)
 const serverPort = parseInt(PORT ?? '42069')
+const serverHost = fs.existsSync('/.dockerenv') ? '0.0.0.0' : 'localhost'
 
 const server = fastify()
 server.register(multer.contentParser)
@@ -36,7 +38,7 @@ createConnection({
   logging: true
 }).then(() => {
   console.log('Database Ready!')
-  server.listen(serverPort)
+  server.listen(serverPort, serverHost)
     .then(() => {
       console.log(`Listening to port ${serverPort}`)
     }).catch(err => {
