@@ -17,6 +17,7 @@ const server = fastify()
 server.register(multer.contentParser)
 server.register(require('./routes/upload'))
 server.register(require('./routes/getfile'))
+server.register(require('fastify-favicon'), { path: './static/' })
 
 // Routes
 
