@@ -5,7 +5,20 @@ import crypto from 'crypto'
 import * as hashids from '../helper/hashids'
 import { Image as ImageModel } from '../db/model/Image'
 import { getRepository } from 'typeorm'
+import imagemin from 'imagemin'
+import imageminWebp from 'imagemin-webp'
 require('dotenv').config()
+
+const imageminOpts: imagemin.Options = {
+  destination: 'img/',
+  plugins: [
+    imageminWebp({
+      quality: 75,
+      method: 6,
+      autoFilter: true
+    })
+  ]
+}
 
 const diskStorage = multer.diskStorage({
   destination: (req, file, callback) => {
@@ -22,14 +35,17 @@ const diskStorage = multer.diskStorage({
 const fileHandler = multer({ storage: diskStorage })
 
 module.exports = function (fastify: FastifyInstance, _:any, done: VoidFunction): void {
-  fastify.post('/upload', { preValidation: [handleAuth], preHandler: fileHandler.single('image') }, (req, res) => {
+  fastify.post('/upload', { preValidation: [handleAuth], preHandler: fileHandler.single('image') }, async (req, res) => {
     console.log('Got a file with filename', req.file.filename)
 
     const imageRepo = getRepository(ImageModel)
     const image = new ImageModel()
     image.filename = req.file.filename!
 
-    imageRepo.save(image)
+    imagemin([`img/${image.filename}`], imageminOpts)
+      .then(compressedImg => console.log(`Image ${image.filename} has been encoded to WebP.\n ${compressedImg[0].destinationPath}`))
+
+    imageRepo.save(image) // Save image in database, after successful, send message
       .then(DBImage => {
         const hashedID = hashids.encode(DBImage.id)
         imageRepo.update({ id: DBImage.id }, { urlpath: hashedID })
