@@ -787,10 +787,10 @@ fastify-favicon@^2.0.0:
   dependencies:
     fastify-plugin "^1.5.0"
 
-fastify-multer@^1.5.3:
-  version "1.5.3"
-  resolved "https://registry.yarnpkg.com/fastify-multer/-/fastify-multer-1.5.3.tgz#5094b701212c178fdae345cc66fa944cabeaa1d8"
-  integrity sha512-yXu8V46KpBKdWBUdts62Elfq0GRv9lKIqXp4si6Qvchnrqxse7BRA/UD8Aglj0rmC9bn369z7S0kvRWqlYbeCQ==
+fastify-multer@^1.5.4:
+  version "1.5.4"
+  resolved "https://registry.yarnpkg.com/fastify-multer/-/fastify-multer-1.5.4.tgz#14105e61436c82f5266218cbe8a62adef2780c75"
+  integrity sha512-YgT0XvT5cvc6Yo0qWN0hsDdn4w5eEB02KOk1vqSHK5AmpRw/Up9q2dzXcLcTHeL/B89+AiDSx6ljkZ67vkp1cw==
   dependencies:
     append-field "^1.0.0"
     busboy "~0.3.1"

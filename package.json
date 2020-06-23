@@ -13,7 +13,7 @@
     "dotenv": "^8.2.0",
     "fastify": "^2.15.0",
     "fastify-favicon": "^2.0.0",
-    "fastify-multer": "^1.5.3",
+    "fastify-multer": "^1.5.4",
     "hashids": "^2.2.1",
     "mime-types": "^2.1.27",
     "mysql": "^2.18.1",
