@@ -51,3 +51,13 @@ createConnection({
       console.error(err)
     })
 })
+
+process.on('SIGINT', () => {
+  console.log('Process SIGINT')
+  getConnection().close()
+})
+
+process.on('SIGTERM', () => {
+  console.log('Process SIGTERM')
+  getConnection().close()
+})
