@@ -1,5 +1,5 @@
 import 'reflect-metadata'
-import { createConnection } from 'typeorm'
+import { createConnection, getConnection } from 'typeorm'
 import { Image } from './db/model/Image'
 import fs from 'fs'
 import fastify from 'fastify'
@@ -23,6 +23,11 @@ server.register(require('fastify-favicon'), { path: './static/' })
 
 server.get('/', (_, res) => {
   res.send('How did you find this?')
+})
+
+server.get('/health', (_, res) => {
+  const isHealthy = getConnection().isConnected
+  res.code(isHealthy ? 200 : 500).send(isHealthy ? 'OK' : 'ERR')
 })
 
 createConnection({
