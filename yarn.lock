@@ -803,12 +803,12 @@ fast-safe-stringify@^2.0.7:
   resolved "https://registry.yarnpkg.com/fast-safe-stringify/-/fast-safe-stringify-2.0.7.tgz#124aa885899261f68aedb42a7c080de9da608743"
   integrity sha512-Utm6CdzT+6xsDk2m8S6uL8VHxNwI6Jub+e9NYTcAms28T84pTa25GJQV9j0CY0N1rM8hK4x6grpF2BQf+2qwVA==
 
-fastify-favicon@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/fastify-favicon/-/fastify-favicon-2.0.0.tgz#8b67123a7764c45b9a3927f5f3198d669b359a5e"
-  integrity sha512-npTACBvEA20dM0Ot7cac1l1ErWEaDcI85xOqiTNvLRDSRe7NugRt2PK7bBPqf8vvVzAqma1ijR6GxWnXff0dQQ==
+fastify-favicon@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/fastify-favicon/-/fastify-favicon-3.0.0.tgz#02dc11a12b806824f2d0f4a64ade4e6bfea20090"
+  integrity sha512-wdA5qA6rlHKleKptwzi8RT+4AZxd//q1uQPJXxzS5FxMfGJffftPqAV7datDckK9G712yw7NTTMkTI4Xj24CDg==
   dependencies:
-    fastify-plugin "^1.5.0"
+    fastify-plugin "^2.0.1"
 
 fastify-multer@^1.5.3:
   version "1.5.3"
@@ -824,7 +824,14 @@ fastify-multer@^1.5.3:
     type-is "~1.6.18"
     xtend "^4.0.2"
 
-fastify-plugin@^1.5.0, fastify-plugin@~1.6.0:
+fastify-plugin@^2.0.1:
+  version "2.3.4"
+  resolved "https://registry.yarnpkg.com/fastify-plugin/-/fastify-plugin-2.3.4.tgz#b17abdc36a97877d88101fb86ad8a07f2c07de87"
+  integrity sha512-I+Oaj6p9oiRozbam30sh39BiuiqBda7yK2nmSPVwDCfIBlKnT8YB3MY+pRQc2Fcd07bf6KPGklHJaQ2Qu81TYQ==
+  dependencies:
+    semver "^7.3.2"
+
+fastify-plugin@~1.6.0:
   version "1.6.1"
   resolved "https://registry.yarnpkg.com/fastify-plugin/-/fastify-plugin-1.6.1.tgz#122f5a5eeb630d55c301713145a9d188e6d5dd5b"
   integrity sha512-APBcb27s+MjaBIerFirYmBLatoPCgmHZM6XP0K+nDL9k0yX8NJPWDY1RAC3bh6z+AB5ULS2j31BUfLMT3uaZ4A==
