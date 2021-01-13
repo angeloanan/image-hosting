@@ -18,7 +18,7 @@
     "mime-types": "^2.1.27",
     "mysql": "^2.18.1",
     "reflect-metadata": "^0.1.13",
-    "typeorm": "^0.2.26",
+    "typeorm": "^0.2.30",
     "typescript": "^3.8.3"
   },
   "devDependencies": {
