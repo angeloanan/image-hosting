@@ -12,7 +12,7 @@
   "dependencies": {
     "@prisma/client": "2.21.1",
     "dotenv": "^8.2.0",
-    "fastify": "^2.15.1",
+    "fastify": "^3.14.2",
     "fastify-favicon": "^2.0.0",
     "fastify-multer": "^1.5.3",
     "hashids": "^2.2.1",
@@ -20,7 +20,7 @@
     "mysql": "^2.18.1",
     "reflect-metadata": "^0.1.13",
     "typeorm": "^0.2.26",
-    "typescript": "^3.8.3"
+    "typescript": "^4.2.4"
   },
   "devDependencies": {
     "@types/mime-types": "^2.1.0",
