@@ -1,49 +1,36 @@
-import { FastifyInstance, FastifyReply, FastifyRequest } from 'fastify'
-import multer from 'fastify-multer'
-import mime from 'mime-types'
-import crypto from 'crypto'
 import * as hashids from '../helper/hashids'
-import { Image as ImageModel } from '../db/model/Image'
-import { getRepository } from 'typeorm'
-require('dotenv').config()
 
-const diskStorage = multer.diskStorage({
-  destination: (req, file, callback) => {
-    callback(null, 'img/')
-  },
-  filename: (req, file, callback) => {
-    const randomName = crypto.randomBytes(16).toString('hex')
-    const extension = mime.extension(file.mimetype)
+import type { FastifyPluginAsync, FastifyReply, FastifyRequest, preValidationHookHandler } from 'fastify'
 
-    if (extension === false) return callback(new Error('Unknown MIME type'))
-    callback(null, `${randomName}.${extension}`)
-  }
-})
-const fileHandler = multer({ storage: diskStorage })
+import fileHandler from '../lib/multer'
+import prisma from '../lib/prisma'
 
-module.exports = function (fastify: FastifyInstance, _:any, done: VoidFunction): void {
-  fastify.post('/upload', { preValidation: [handleAuth], preHandler: fileHandler.single('image') }, (req, res) => {
+const fastifyUploadPlugin: FastifyPluginAsync = async (fastify) => {
+  fastify.post('/upload', { preValidation: handleAuth, preHandler: fileHandler.single('image') }, async (req, res) => {
+    if (req.file.filename == null) return res.status(400).send('Malformed request')
+
     console.log('Got a file with filename', req.file.filename)
 
-    const imageRepo = getRepository(ImageModel)
-    const image = new ImageModel()
-    image.filename = req.file.filename!
-
-    imageRepo.save(image)
-      .then(DBImage => {
-        const hashedID = hashids.encode(DBImage.id)
-        imageRepo.update({ id: DBImage.id }, { urlpath: hashedID })
-
-        res.code(200).send(`${process.env.HOST}/${hashedID}`)
+    try {
+      const imageCount = await prisma.image.count()
+      const urlpath = hashids.encode(imageCount + 1)
+      await prisma.image.create({
+        data: {
+          urlpath,
+          filename: req.file.filename
+        }
       })
-      .catch(err => {
-        res.code(500).send('DB Error' + err)
-      })
+
+      res.status(200).send(`${process.env.HOST}/${urlpath}`)
+    } catch (e) {
+      res.status(500).send(e)
+    }
   })
-  done()
 }
 
-function handleAuth (req: FastifyRequest, res: FastifyReply<any>, done: VoidFunction) {
+const handleAuth: preValidationHookHandler = (req: FastifyRequest, res: FastifyReply<any>, done) => {
   if (req.headers?.authorization !== process.env.AUTH) res.code(401).send('Unauthorized')
   done()
 }
+
+export default fastifyUploadPlugin
