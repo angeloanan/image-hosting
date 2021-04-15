@@ -823,26 +823,33 @@ fastify-favicon@^2.0.0:
   dependencies:
     fastify-plugin "^1.6.1"
 
-fastify-multer@^1.5.3:
-  version "1.5.4"
-  resolved "https://registry.yarnpkg.com/fastify-multer/-/fastify-multer-1.5.4.tgz#14105e61436c82f5266218cbe8a62adef2780c75"
-  integrity sha512-YgT0XvT5cvc6Yo0qWN0hsDdn4w5eEB02KOk1vqSHK5AmpRw/Up9q2dzXcLcTHeL/B89+AiDSx6ljkZ67vkp1cw==
+fastify-multer@^2.0.2:
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/fastify-multer/-/fastify-multer-2.0.2.tgz#7dbbf3f7f21aa94800078b1907b999afa56d8a22"
+  integrity sha512-aBdhJpC9B4Brcj41BrF32np0RBvyx5+qqI0TfdK6cOncZ3s3TNPzvYr1uioHKI1OOwoD11hptF9pbz4NAM+NOw==
   dependencies:
     append-field "^1.0.0"
     busboy "~0.3.1"
     concat-stream "^2.0.0"
-    fastify-plugin "~1.6.0"
+    fastify-plugin "^2.0.1"
     mkdirp "^0.5.1"
     on-finished "^2.3.0"
     type-is "~1.6.18"
     xtend "^4.0.2"
 
-fastify-plugin@^1.6.1, fastify-plugin@~1.6.0:
+fastify-plugin@^1.6.1:
   version "1.6.1"
   resolved "https://registry.yarnpkg.com/fastify-plugin/-/fastify-plugin-1.6.1.tgz#122f5a5eeb630d55c301713145a9d188e6d5dd5b"
   integrity sha512-APBcb27s+MjaBIerFirYmBLatoPCgmHZM6XP0K+nDL9k0yX8NJPWDY1RAC3bh6z+AB5ULS2j31BUfLMT3uaZ4A==
   dependencies:
     semver "^6.3.0"
+
+fastify-plugin@^2.0.1:
+  version "2.3.4"
+  resolved "https://registry.yarnpkg.com/fastify-plugin/-/fastify-plugin-2.3.4.tgz#b17abdc36a97877d88101fb86ad8a07f2c07de87"
+  integrity sha512-I+Oaj6p9oiRozbam30sh39BiuiqBda7yK2nmSPVwDCfIBlKnT8YB3MY+pRQc2Fcd07bf6KPGklHJaQ2Qu81TYQ==
+  dependencies:
+    semver "^7.3.2"
 
 fastify-warning@^0.2.0:
   version "0.2.0"
