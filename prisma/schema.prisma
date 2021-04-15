@@ -12,6 +12,6 @@ generator client {
 
 model Image {
   id Int @default(autoincrement()) @id
-  filename String
-  urlpath String
+  filename String @unique
+  urlpath String @unique
 }
