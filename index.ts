@@ -1,9 +1,19 @@
 import 'reflect-metadata'
+import 'dotenv/config'
+
+import { File, FilesObject } from 'fastify-multer/src/interfaces'
 
 import fastify from 'fastify'
 import multer from 'fastify-multer'
 
-require('dotenv').config()
+type FilesInRequest = FilesObject | Partial<File>[]
+
+declare module 'fastify' {
+  export interface FastifyRequest {
+    file: File
+    files: FilesInRequest
+  }
+}
 
 const server = fastify()
 server.register(multer.contentParser)
