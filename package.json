@@ -8,7 +8,7 @@
   "scripts": {
     "postinstall": "yarn prisma generate",
     "build": "tsc -p tsconfig.json",
-    "start": "ts-node index.ts"
+    "dev": "yarn build && node ./dist/index.js"
   },
   "dependencies": {
     "@prisma/client": "2.21.1",
