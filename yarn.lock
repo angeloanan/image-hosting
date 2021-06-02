@@ -36,17 +36,17 @@
     "@fastify/forwarded" "^1.0.0"
     ipaddr.js "^2.0.0"
 
-"@prisma/client@2.21.1":
-  version "2.21.1"
-  resolved "https://registry.yarnpkg.com/@prisma/client/-/client-2.21.1.tgz#790e09b7f0367a456cdb40cc5898d25494631106"
-  integrity sha512-37Sq4vBsZt21AvgMzo2kLvPs1LhqEWoelwGNK/tDNuDR+HbuxlDSX6lIiqSwd7s4/Lw5mx2Dtevpopq/RzaqzQ==
+"@prisma/client@2.24.0":
+  version "2.24.0"
+  resolved "https://registry.yarnpkg.com/@prisma/client/-/client-2.24.0.tgz#83404f98905998770625ec7f13ad73532b144eba"
+  integrity sha512-y3BbJJMB3bhSXWpbqOlnAvnhvK0UYQMZZC5gacS+nR1eZl4MovVgl9syk6En3FXIQaneLukoiWfFaIxfDVZArw==
   dependencies:
-    "@prisma/engines-version" "2.21.0-36.e421996c87d5f3c8f7eeadd502d4ad402c89464d"
+    "@prisma/engines-version" "2.24.0-30.f3e341280d96d0abc068f97e959ddf01f321a858"
 
-"@prisma/engines-version@2.21.0-36.e421996c87d5f3c8f7eeadd502d4ad402c89464d":
-  version "2.21.0-36.e421996c87d5f3c8f7eeadd502d4ad402c89464d"
-  resolved "https://registry.yarnpkg.com/@prisma/engines-version/-/engines-version-2.21.0-36.e421996c87d5f3c8f7eeadd502d4ad402c89464d.tgz#b749bae4173eb766dafc298aaa7d883c2dbe555b"
-  integrity sha512-9/fE1gdPWmjbMjXUJjrTMt848TsgEnSjZCcJ1wu9OAcRlAKKJBLehftqC3gSEShDijvMYgeTdGU5snMpwmv4vg==
+"@prisma/engines-version@2.24.0-30.f3e341280d96d0abc068f97e959ddf01f321a858":
+  version "2.24.0-30.f3e341280d96d0abc068f97e959ddf01f321a858"
+  resolved "https://registry.yarnpkg.com/@prisma/engines-version/-/engines-version-2.24.0-30.f3e341280d96d0abc068f97e959ddf01f321a858.tgz#609fb53d9feb1efc8689b4ce6098af1b486ad29f"
+  integrity sha512-KHns2Puc38woxnx3MKoUUW0tfR5yftDCmT/df0rUHe6ZcREt1kwI3dgvsOBz+6n7stuSNeLiU7uEkc7Ga3PgNA==
 
 "@prisma/engines@2.21.0-36.e421996c87d5f3c8f7eeadd502d4ad402c89464d":
   version "2.21.0-36.e421996c87d5f3c8f7eeadd502d4ad402c89464d"
